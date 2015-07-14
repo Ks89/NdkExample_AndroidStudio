@@ -1,0 +1,11 @@
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+
+.idea
+app/app.iml
+NdkExample_AndroidStudio1.3.iml

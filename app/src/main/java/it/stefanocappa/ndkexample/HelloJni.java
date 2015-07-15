@@ -28,8 +28,8 @@ public class HelloJni extends AppCompatActivity {
     private String instanceField = "Instance Field";
     private static String staticField = "Static Field";
 
+    private static final String TAG = "HelloJni";
 
-    /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -38,6 +38,7 @@ public class HelloJni extends AppCompatActivity {
         tw.setText(stringFromJNI());
         setContentView(tw);
 
+        Log.d(TAG, "average*average = " + averageTwoNumberFromJni(6, 10));
     }
 
     /* A native method that is implemented by the
@@ -60,13 +61,28 @@ public class HelloJni extends AppCompatActivity {
     public native String unimplementedStringFromJNI();
 
 
+    public native int averageTwoNumberFromJni(int a, int b);
+
+    /**
+     * Visibility in not important when i want to call this method from c files
+     */
+    private int power(int a) {
+        return a * a;
+    }
+
+    /**
+     * Visibility in not important when i want to call this method from c files
+     */
     private String instanceMethod() {
-        Log.d("instanceMethod","method called");
+        Log.d(TAG,"instance method called");
         return "Instance Method";
     }
 
+    /**
+     * Visibility in not important when i want to call this method from c files
+     */
     private static String staticMethod() {
-        Log.d("staticMethod", "static method called");
+        Log.d(TAG, "static method called");
         return "Static Method";
     }
 

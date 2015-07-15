@@ -28,23 +28,23 @@ model {
         create("arm7") {
             ndk.abiFilters += "armeabi-v7a"
         }
-//        create("arm8") {
-//            ndk.abiFilters += "arm64-v8a"
-//        }
-//        create("x86") {
-//            ndk.abiFilters += "x86"
-//        }
-//        create("x86-64") {
-//            ndk.abiFilters += "x86_64"
-//        }
-//        create("mips") {
-//            ndk.abiFilters += "mips"
-//        }
-//        create("mips-64") {
-//            ndk.abiFilters += "mips64"
-//        }
-//        // To include all cpu architectures, leaves abiFilters empty
-//        create("all")
+        create("arm8") {
+            ndk.abiFilters += "arm64-v8a"
+        }
+        create("x86") {
+            ndk.abiFilters += "x86"
+        }
+        create("x86-64") {
+            ndk.abiFilters += "x86_64"
+        }
+        create("mips") {
+            ndk.abiFilters += "mips"
+        }
+        create("mips-64") {
+            ndk.abiFilters += "mips64"
+        }
+        // To include all cpu architectures, leaves abiFilters empty
+        create("all")
     }
 
     // Configures source set directory.
@@ -74,13 +74,18 @@ model {
          */
     }
 //    android.ndk {
-//        moduleName = "wpa_client"
+//        moduleName = "moduleName"
 //        //add head files
-////        cppFlags +="-I${file("src/main/jni/ffmpeg/include")}".toString()
+////        cppFlags +="-I${file("src/main/jni/libName/include")}".toString()
 //
 //        //add prebuilt library
-//        ldLibs += file("src/main/jni/libwpa_client_k.so").toString()
+//        ldLibs += file("src/main/jni/libName.so").toString()
 //    }
+
+    android.compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_7
+        targetCompatibility = JavaVersion.VERSION_1_7
+    }
 
 }
 

@@ -16,44 +16,61 @@
  */
 
 #include <jni.h>
+#include <stdio.h>
+
+jint
+Java_it_stefanocappa_ndkexample_HelloJni_averageTwoNumberFromJni( JNIEnv* env, jobject thiz, jint a, jint b ) {
+
+    jint result;
+    printf("In C, the numbers are %d and %d\n", a, a);
+    result = ((jint)a + b) / 2.0;
+
+    jclass clazz;
+    clazz = (*env)->GetObjectClass(env, thiz);
+
+//    jmethodID instanceMethodId = (*env)->GetMethodID(env, clazz, "power", "(I)V");
+
+
+    //now i pass the avarage of a and b to do the Exponentiation
+//    jint instanceMethodResult = (*env)->CallIntMethod(env, thiz, instanceMethodId, (int)result);
+
+    return result;
+}
 
 jstring
-Java_it_stefanocappa_ndkexample_HelloJni_stringFromJNI( JNIEnv* env,
-                                                  jobject thiz )
-{
-#if defined(__arm__)
-    #if defined(__ARM_ARCH_7A__)
-      #if defined(__ARM_NEON__)
-        #if defined(__ARM_PCS_VFP)
-          #define ABI "armeabi-v7a/NEON (hard-float)"
+Java_it_stefanocappa_ndkexample_HelloJni_stringFromJNI( JNIEnv* env, jobject thiz ) {
+    #if defined(__arm__)
+        #if defined(__ARM_ARCH_7A__)
+          #if defined(__ARM_NEON__)
+            #if defined(__ARM_PCS_VFP)
+              #define ABI "armeabi-v7a/NEON (hard-float)"
+            #else
+              #define ABI "armeabi-v7a/NEON"
+            #endif
+          #else
+            #if defined(__ARM_PCS_VFP)
+              #define ABI "armeabi-v7a (hard-float)"
+            #else
+              #define ABI "armeabi-v7a"
+            #endif
+          #endif
         #else
-          #define ABI "armeabi-v7a/NEON"
+         #define ABI "armeabi"
         #endif
-      #else
-        #if defined(__ARM_PCS_VFP)
-          #define ABI "armeabi-v7a (hard-float)"
-        #else
-          #define ABI "armeabi-v7a"
-        #endif
-      #endif
+    #elif defined(__i386__)
+        #define ABI "x86"
+    #elif defined(__x86_64__)
+        #define ABI "x86_64"
+    #elif defined(__mips64)  /* mips64el-* toolchain defines __mips__ too */
+        #define ABI "mips64"
+    #elif defined(__mips__)
+        #define ABI "mips"
+    #elif defined(__aarch64__)
+    #define ABI "arm64-v8a"
     #else
-     #define ABI "armeabi"
+        #define ABI "unknown"
     #endif
-#elif defined(__i386__)
-    #define ABI "x86"
-#elif defined(__x86_64__)
-    #define ABI "x86_64"
-#elif defined(__mips64)  /* mips64el-* toolchain defines __mips__ too */
-    #define ABI "mips64"
-#elif defined(__mips__)
-    #define ABI "mips"
-#elif defined(__aarch64__)
-#define ABI "arm64-v8a"
-#else
-    #define ABI "unknown"
-#endif
 
-    //esempio chiamata metodo di una classe java
     jclass clazz;
     clazz = (*env)->GetObjectClass(env, thiz);
 
@@ -81,7 +98,7 @@ Java_it_stefanocappa_ndkexample_HelloJni_stringFromJNI( JNIEnv* env,
     instanceMethodResult = (jstring) (*env)->CallObjectMethod(env, thiz, instanceMethodId);
 
     jstring staticMethodResult;
-    staticMethodResult = (*env)->CallStaticObjectMethod(env, clazz, staticMethodId);
+    staticMethodResult = (jstring) (*env)->CallStaticObjectMethod(env, clazz, staticMethodId);
 
     return (*env)->NewStringUTF(env, "Hello from JNI !  Compiled with ABI " ABI ".");
 }

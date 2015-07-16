@@ -22,19 +22,19 @@ jint
 Java_it_stefanocappa_ndkexample_HelloJni_averageTwoNumberFromJni( JNIEnv* env, jobject thiz, jint a, jint b ) {
 
     jint result;
-    printf("In C, the numbers are %d and %d\n", a, a);
+    printf("In C, the numbers are %d and %d\n", a, b);
     result = ((jint)a + b) / 2.0;
 
     jclass clazz;
     clazz = (*env)->GetObjectClass(env, thiz);
 
-//    jmethodID instanceMethodId = (*env)->GetMethodID(env, clazz, "power", "(I)V");
+    jmethodID instanceMethodId = (*env)->GetMethodID(env, clazz, "power", "(I)I");
 
 
     //now i pass the avarage of a and b to do the Exponentiation
-//    jint instanceMethodResult = (*env)->CallIntMethod(env, thiz, instanceMethodId, (int)result);
+    jint instanceMethodResult = (*env)->CallIntMethod(env, thiz, instanceMethodId, (int)result);
 
-    return result;
+    return instanceMethodResult;
 }
 
 jstring

@@ -21,7 +21,6 @@ Attention this project requires Android Studio RC1 or greater, gradle 2.5  or gr
 
 #License
 
-Copyright 2009 The Android Open Source Project<br>
 Copyright 2015 Stefano Cappa
   
 Licensed under the Apache License, Version 2.0 (the "License");

@@ -1,5 +1,4 @@
 /*
- * Copyright (C) 2009 The Android Open Source Project
  * Copyright (C) 2015 Stefano Cappa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +18,7 @@
 #include <stdio.h>
 
 jint
-Java_it_stefanocappa_ndkexample_HelloJni_averageTwoNumberFromJni( JNIEnv* env, jobject thiz, jint a, jint b ) {
+Java_it_stefanocappa_ndkexample_Example_averageTwoNumberFromJni( JNIEnv* env, jobject thiz, jint a, jint b ) {
 
     jint result;
     printf("In C, the numbers are %d and %d\n", a, b);
@@ -38,7 +37,7 @@ Java_it_stefanocappa_ndkexample_HelloJni_averageTwoNumberFromJni( JNIEnv* env, j
 }
 
 jstring
-Java_it_stefanocappa_ndkexample_HelloJni_stringFromJNI( JNIEnv* env, jobject thiz ) {
+Java_it_stefanocappa_ndkexample_Example_stringFromJNI( JNIEnv* env, jobject thiz ) {
     #if defined(__arm__)
         #if defined(__ARM_ARCH_7A__)
           #if defined(__ARM_NEON__)

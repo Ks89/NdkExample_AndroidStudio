@@ -1,5 +1,4 @@
 /*
- * Copyright (C) 2009 The Android Open Source Project
  * Copyright (C) 2015 Stefano Cappa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +22,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-public class HelloJni extends AppCompatActivity {
+public class Example extends AppCompatActivity {
 
     private String instanceField = "Instance Field";
     private static String staticField = "Static Field";
@@ -34,6 +33,7 @@ public class HelloJni extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         TextView tw = new TextView(this);
         tw.setText(stringFromJNI());
         setContentView(tw);
@@ -86,10 +86,11 @@ public class HelloJni extends AppCompatActivity {
         return "Static Method";
     }
 
-    /* this is used to load the library on application
+    /*
+     * This is used to load the library on application
      * startup.
      */
     static {
-        System.loadLibrary("hello-jni");
+        System.loadLibrary("example");
     }
 }

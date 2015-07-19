@@ -16,7 +16,7 @@ This means that:<br>
 6. The result appears in Logacat thanks to: Log.d(TAG, "average\*average = " + averageTwoNumberFromJni(6, 10));
 
 
-Attention this project requires Android Studio RC1 or greater, gradle 2.5  or greater, and gradle build tool experimental 0.1.0 or greater.
+Attention this project requires Android Studio RC1 or higher, gradle 2.5  or higher, and gradle build tool experimental 0.1.0 or higher.
 
 
 #License

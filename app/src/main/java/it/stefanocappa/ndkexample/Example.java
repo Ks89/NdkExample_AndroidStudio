@@ -22,6 +22,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class Example extends AppCompatActivity {
 
     private String instanceField = "Instance Field";
@@ -38,17 +40,19 @@ public class Example extends AppCompatActivity {
         tw.setText(stringFromJNI());
         setContentView(tw);
 
+        testMethodManyParameters();
+
         Log.d(TAG, "average*average = " + averageTwoNumberFromJni(6, 10));
     }
 
-    /* A native method that is implemented by the
+    /** A native method that is implemented by the
      * native library, which is packaged
      * with this application.
      */
-    public native String  stringFromJNI();
+    public native String stringFromJNI();
 
 
-    /* This is another native method declaration that is *not*
+    /** This is another native method declaration that is *not*
      * implemented by the library. This is simply to show that
      * you can declare as many native methods in your Java code
      * as you want, their implementation is searched in the
@@ -62,6 +66,22 @@ public class Example extends AppCompatActivity {
 
 
     public native int averageTwoNumberFromJni(int a, int b);
+
+
+    /**
+     * I use this method only to call testMethodWithManyParameters(...) from native part.
+     * It's useless i know, but it's an example.
+     */
+    public native void testMethodManyParameters();
+
+
+    /**
+     * Visibility in not important when i want to call this method from c files
+     */
+    private String testMethodWithManyParameters(int a, String b, int c, float d, int e, String[] f, Object g) {
+        Log.d(TAG, a + "," + b + "," + c + "," + d + "," + e + "," + f[0]+f[1] + "," + g.toString());
+        return a + "," + b + "," + c + "," + d + "," + e + "," + f[0]+f[1] + "," + g.toString();
+    }
 
     /**
      * Visibility in not important when i want to call this method from c files
@@ -86,7 +106,7 @@ public class Example extends AppCompatActivity {
         return "Static Method";
     }
 
-    /*
+    /**
      * This is used to load the library on application
      * startup.
      */

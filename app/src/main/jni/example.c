@@ -17,11 +17,45 @@
 #include <jni.h>
 #include <stdio.h>
 
+void
+Java_it_stefanocappa_ndkexample_Example_testMethodManyParameters( JNIEnv* env, jobject thiz) {
+
+    jclass clazz;
+    clazz = (*env)->GetObjectClass(env, thiz);
+
+    jmethodID instanceMethodId = (*env)->GetMethodID(env, clazz,
+              "testMethodWithManyParameters", "(ILjava/lang/String;IFI[Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/String;");
+
+
+    //here i prepare an array
+    char *message[5]= {"first",
+                       "second",
+                       "third",
+                       "fourth",
+                       "fifth"};
+    jobjectArray ret = (jobjectArray)(*env)->NewObjectArray(env, 5, //size = 5
+                                                           (*env)->FindClass(env, "java/lang/String"),
+                                                           (*env)->NewStringUTF(env, ""));
+    int i = 0;
+    for(i=0;i<5;i++) {
+        (*env)->SetObjectArrayElement(env,ret,i,(*env)->NewStringUTF(env,message[i]));
+    }
+
+    //now i call the Java method testMethodWithManyParameters(...)
+    (*env)->CallObjectMethod(env, thiz, instanceMethodId,
+                             (jint)5,
+                             (*env)->NewStringUTF(env, "Hello"),
+                             (jint)4,
+                             (jfloat)3,
+                             (jint)4,
+                             ret,
+                             (*env)->NewStringUTF(env, "Hello3"));
+}
+
 jint
 Java_it_stefanocappa_ndkexample_Example_averageTwoNumberFromJni( JNIEnv* env, jobject thiz, jint a, jint b ) {
 
     jint result;
-    printf("In C, the numbers are %d and %d\n", a, b);
     result = ((jint)a + b) / 2.0;
 
     jclass clazz;

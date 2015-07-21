@@ -1,6 +1,9 @@
 # NdkExample in AndroidStudio
 My example of an AndroidStudio1.3 RC NDK's project.
 
+# TODO
+- update this read me, because it's very old. Please read the code ;)
+
 # What is it intereseting here?
 
 I created an example to calculate the average between 6 and 10 and after that this app calculates the power of previous result.

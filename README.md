@@ -2,7 +2,7 @@
 My example of an AndroidStudio1.3 RC NDK's project.
 
 # TODO
-- update this read me, because it's very old. Please read the code ;)
+- update this read me, because it's very old. Please read the code ;) in particular the new native method that I'm using as an example of more complicated jni signature.  
 
 # What is it intereseting here?
 

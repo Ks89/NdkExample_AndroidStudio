@@ -15,7 +15,12 @@
  */
 
 #include <jni.h>
-#include <stdio.h>
+
+
+//definition of utils functions
+jobject createIntegerObject(JNIEnv* env, int value);
+jobject createDoubleObject(JNIEnv* env, double value);
+
 
 void
 Java_it_stefanocappa_ndkexample_Example_testMethodManyParameters( JNIEnv* env, jobject thiz) {
@@ -24,7 +29,7 @@ Java_it_stefanocappa_ndkexample_Example_testMethodManyParameters( JNIEnv* env, j
     clazz = (*env)->GetObjectClass(env, thiz);
 
     jmethodID instanceMethodId = (*env)->GetMethodID(env, clazz,
-              "testMethodWithManyParameters", "(ILjava/lang/String;IFI[Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/String;");
+              "testMethodWithManyParameters", "(ILjava/lang/String;Ljava/lang/Integer;FLjava/lang/Double;[Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/String;");
 
 
     //here i prepare an array
@@ -41,16 +46,21 @@ Java_it_stefanocappa_ndkexample_Example_testMethodManyParameters( JNIEnv* env, j
         (*env)->SetObjectArrayElement(env,ret,i,(*env)->NewStringUTF(env,message[i]));
     }
 
+    //create an Integer and a Double Objects
+    jobject integerObject = createIntegerObject(env, 5);
+    jobject doubleObject = createDoubleObject(env, 129.58);
+
     //now i call the Java method testMethodWithManyParameters(...)
     (*env)->CallObjectMethod(env, thiz, instanceMethodId,
                              (jint)5,
                              (*env)->NewStringUTF(env, "Hello"),
-                             (jint)4,
+                             integerObject,
                              (jfloat)3,
-                             (jint)4,
+                             doubleObject,
                              ret,
                              (*env)->NewStringUTF(env, "Hello3"));
 }
+
 
 jint
 Java_it_stefanocappa_ndkexample_Example_averageTwoNumberFromJni( JNIEnv* env, jobject thiz, jint a, jint b ) {
@@ -134,4 +144,23 @@ Java_it_stefanocappa_ndkexample_Example_stringFromJNI( JNIEnv* env, jobject thiz
     staticMethodResult = (jstring) (*env)->CallStaticObjectMethod(env, clazz, staticMethodId);
 
     return (*env)->NewStringUTF(env, "Hello from JNI !  Compiled with ABI " ABI ".");
+}
+
+
+
+//create an Integer (not the primitive int, but the Java Object)
+jobject createIntegerObject(JNIEnv* env, int value) {
+    jclass clazzInteger = (*env)->FindClass(env, "java/lang/Integer");
+    jmethodID methodIdInteger = (*env)->GetMethodID(env, clazzInteger, "<init>", "(I)V");
+    jobject integerObject =(*env)->NewObject(env, clazzInteger, methodIdInteger, value);
+    return integerObject;
+}
+
+
+//create a Double (not the primitive double, but the Java Object)
+jobject createDoubleObject(JNIEnv* env, double value) {
+    jclass clazzDouble = (*env)->FindClass(env, "java/lang/Double");
+    jmethodID methodIdDouble = (*env)->GetMethodID(env, clazzDouble, "<init>", "(D)V");
+    jobject doubleObject =(*env)->NewObject(env, clazzDouble, methodIdDouble, value);
+    return doubleObject;
 }

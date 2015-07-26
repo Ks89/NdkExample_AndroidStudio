@@ -78,7 +78,7 @@ public class Example extends AppCompatActivity {
     /**
      * Visibility in not important when i want to call this method from c files
      */
-    private String testMethodWithManyParameters(int a, String b, int c, float d, int e, String[] f, Object g) {
+    private String testMethodWithManyParameters(int a, String b, Integer c, float d, Double e, String[] f, Object g) {
         Log.d(TAG, a + "," + b + "," + c + "," + d + "," + e + "," + f[0]+f[1] + "," + g.toString());
         return a + "," + b + "," + c + "," + d + "," + e + "," + f[0]+f[1] + "," + g.toString();
     }

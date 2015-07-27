@@ -46,6 +46,7 @@ Java_it_stefanocappa_ndkexample_Example_testMethodManyParameters( JNIEnv* env, j
         (*env)->SetObjectArrayElement(env,ret,i,(*env)->NewStringUTF(env,message[i]));
     }
 
+
     //create an Integer and a Double Objects
     jobject integerObject = createIntegerObject(env, 5);
     jobject doubleObject = createDoubleObject(env, 129.58);

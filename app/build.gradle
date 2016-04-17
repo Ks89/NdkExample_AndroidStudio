@@ -3,59 +3,67 @@ apply plugin: 'com.android.model.application'
 model {
     android {
         compileSdkVersion = 23
-        buildToolsVersion = "23.0.1"
+        buildToolsVersion = "23.0.3"
 
         defaultConfig.with {
             applicationId = "it.stefanocappa.ndkexample_androidstudio13"
             minSdkVersion.apiLevel = 17
             targetSdkVersion.apiLevel = 23
-            versionCode = 1
-            versionName = "1.0"
+            versionCode 1
+            versionName "1.0"
         }
     }
+
+    android.ndk {
+        moduleName = "example"
+        ldLibs.addAll(['log'])
+//        cppFlags.add("-std=c++11")
+//        cppFlags.add("-fexceptions")
+//        stl = 'gnustl_static'
+    }
+
+//    android.signingConfigs {
+//        create("release") {
+//            keyAlias KEY_ALIAS
+//            keyPassword STORE_PASSWORD
+//            storeFile file(STORE_FILE)
+//            storePassword KEY_PASSWORD
+//        }
+//    }
+
     android.buildTypes {
         release {
+            //signingConfig = $("android.signingConfigs.release“)
             minifyEnabled = false
-            proguardFiles += file('proguard-rules.pro')
+            proguardFiles.add(file('proguard-rules.pro'))
         }
     }
     android.productFlavors {
         // for detailed abiFilter descriptions, refer to "Supported ABIs" @
         // https://developer.android.com/ndk/guides/abis.html#sa
         create("arm") {
-            ndk.abiFilters += "armeabi"
+            ndk.abiFilters.add("armeabi")
         }
         create("arm7") {
-            ndk.abiFilters += "armeabi-v7a"
+            ndk.abiFilters.add("armeabi-v7a")
         }
         create("arm8") {
-            ndk.abiFilters += "arm64-v8a"
+            ndk.abiFilters.add("arm64-v8a")
         }
         create("x86") {
-            ndk.abiFilters += "x86"
+            ndk.abiFilters.add("x86")
         }
         create("x86-64") {
-            ndk.abiFilters += "x86_64"
+            ndk.abiFilters.add("x86_64")
         }
         create("mips") {
-            ndk.abiFilters += "mips"
+            ndk.abiFilters.add("mips")
         }
         create("mips-64") {
-            ndk.abiFilters += "mips64"
+            ndk.abiFilters.add("mips64")
         }
         // To include all cpu architectures, leaves abiFilters empty
         create("all")
-    }
-
-    android.ndk {
-        moduleName = "example"
-        /*
-         * Other ndk flags configurable here are
-         * cppFlags += "-fno-rtti"
-         * cppFlags += "-fno-exceptions"
-         * ldLibs    = ["android", "log"]
-         * stl       = "system"
-         */
     }
 
     android.compileOptions {
@@ -65,9 +73,13 @@ model {
 
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = "2.12"
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:appcompat-v7:23.3.0'
 
     compile 'com.jakewharton:butterknife:7.0.1'
 }

@@ -1,5 +1,5 @@
 # NdkExample in AndroidStudio
-My example of an AndroidStudio1.3 RC NDK's project.
+My example of an AndroidStudio RC NDK's project.
 
 
 # What is it intereseting here?

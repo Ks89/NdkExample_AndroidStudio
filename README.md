@@ -1,5 +1,5 @@
 # NdkExample in AndroidStudio
-My example of an AndroidStudio RC NDK's project.
+My example of an AndroidStudio NDK's project.
 
 
 # What is it intereseting here?
@@ -37,12 +37,12 @@ This means that:<br>
 
 #Warning
 
-Attention this project requires Android Studio RC1 or higher, gradle 2.5  or higher, and gradle build tool experimental 0.1.0 or higher.
+Attention this project requires Android Studio 2 or greater, gradle 2.12  or greater, and gradle build tool experimental 0.7.0-beta1 or greater.
 
 
 #License
 
-Copyright 2015 Stefano Cappa
+Copyright 2015-2016 Stefano Cappa
   
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
